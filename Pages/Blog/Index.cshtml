@@ -1,0 +1,65 @@
+@page
+@model CS58___Entity_Framework.Pages_Blog.IndexModel
+
+@{
+    ViewData["Title"] = "Các bài viết";
+    int stt = 0;
+}
+
+
+
+<h1>Danh sách bài viết</h1>
+<form class="mb-2" method="get" asp-page="./Index">
+    <div class="d-flex flex-sm-row w-25">
+        <input class="form-control" name="SearchString" value="" placeholder="Tìm kiếm..." />
+        <button class="btn btn-success" type="submit">Tìm</button>
+    </div>
+</form>
+
+<p>
+    <a class="btn btn-primary" asp-page="Create">Tạo bài viết mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Created)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Article)
+        {
+            <tr>
+                <td>@(++stt)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Sửa</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Xem</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var pagingModel = new PagingModel()
+    {
+        CurrentPage = Model.CurrentPage,
+        CountPages = Model.CountPages,
+        GenerateUrl = (int? p) => Url.Page("/Blog/Index", new { SearchString = Request.Query["SearchString"], p = p }) ?? "1"
+    };
+
+}
+
+<partial name="_Paging" model="@pagingModel" />

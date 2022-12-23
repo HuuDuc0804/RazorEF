@@ -1,0 +1,16 @@
+@page
+@model CS58___Entity_Framework.Pages_Blog.DetailsModel
+
+@{
+    ViewData["Title"] = @Model.Article.Title;
+}
+
+<h1>@Model.Article.Title</h1>
+<p><i>@Html.DisplayFor(model => model.Article.Created)</i></p>
+<hr>
+@Html.DisplayFor(model => model.Article.Content)
+
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Article?.Id" class="btn btn-primary">Edit</a> |
+    <a asp-page="./Index">Danh sách bài viết</a>
+</div>
