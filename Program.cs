@@ -15,12 +15,12 @@ builder.Services.AddDbContext<ArticleContext>(option =>
 );
 
 //Đăng ký Identity
-// builder.Services.AddIdentity<AppUser, IdentityRole>()
-//     .AddEntityFrameworkStores<ArticleContext>()
-//     .AddDefaultTokenProviders();
-builder.Services.AddDefaultIdentity<AppUser>()
+builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<ArticleContext>()
     .AddDefaultTokenProviders();
+// builder.Services.AddDefaultIdentity<AppUser>()
+//     .AddEntityFrameworkStores<ArticleContext>()
+//     .AddDefaultTokenProviders();
 
 
 
