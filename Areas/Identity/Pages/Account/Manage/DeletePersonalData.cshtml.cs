@@ -81,13 +81,14 @@ namespace CS58___Entity_Framework.Areas.Identity.Pages.Account.Manage
             {
                 if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                 {
-                    ModelState.AddModelError(string.Empty, "Incorrect password.");
+                    ModelState.AddModelError(string.Empty, "Sai mật khẩu.");
                     return Page();
                 }
             }
 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
+            var userEmail = await _userManager.GetEmailAsync(user);
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Unexpected error occurred deleting user.");
@@ -95,7 +96,7 @@ namespace CS58___Entity_Framework.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.SignOutAsync();
 
-            _logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
+            _logger.LogInformation("Tài khoản với Email '{UserEmail}' đã được xóa.", userEmail);
 
             return Redirect("~/");
         }

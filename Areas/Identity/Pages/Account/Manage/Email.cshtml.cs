@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace CS58___Entity_Framework.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize]
     public class EmailModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
@@ -126,13 +128,13 @@ namespace CS58___Entity_Framework.Areas.Identity.Pages.Account.Manage
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
                     "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"Bấm <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>cvào đây để thay đổi email.</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = "Đã gửi link xác nhận qua Email. Vui lòng kiểm tra email của bạn.";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = "Email của bạn chưa được thay đổi.";
             return RedirectToPage();
         }
 
