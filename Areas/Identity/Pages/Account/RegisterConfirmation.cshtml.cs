@@ -55,7 +55,7 @@ namespace CS58___Entity_Framework.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return NotFound($"Unable to load user with email '{email}'.");
+                return NotFound($"Không thể tải thông tin người dùng từ email '{email}'.");
             }
 
             Email = email;

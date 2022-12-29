@@ -22,14 +22,35 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 //     .AddEntityFrameworkStores<ArticleContext>()
 //     .AddDefaultTokenProviders();
 
-builder.Services.ConfigureApplicationCookie(options => {
+builder.Services.ConfigureApplicationCookie(options =>
+{
     options.LoginPath = "/login/";
     options.LogoutPath = "/logout/";
     options.AccessDeniedPath = "/khongduoctruycap.html";
 });
 
-    // Truy cập IdentityOptions
-builder.Services.Configure<IdentityOptions> (options => {
+builder.Services.AddAuthentication()
+        .AddGoogle(options =>
+        {
+            var googleConfig = builder.Configuration.GetSection("Authentication:Google");
+            options.ClientId = googleConfig["ClientId"];
+            options.ClientSecret = googleConfig["ClientSecret"];
+
+            // mặc định: https://localhost:7073/signin-google
+            options.CallbackPath = "/dang-nhap-google";
+        })
+        .AddFacebook(options =>
+        {
+            var facebookConfig = builder.Configuration.GetSection("Authentication:Facebook");
+            options.AppId = facebookConfig["AppId"];
+            options.AppSecret = facebookConfig["AppSecret"];
+            options.CallbackPath = "/dang-nhap-facebook";
+
+        });
+
+// Truy cập IdentityOptions
+builder.Services.Configure<IdentityOptions>(options =>
+{
     // Thiết lập về Password
     options.Password.RequireDigit = false; // Không bắt phải có số
     options.Password.RequireLowercase = false; // Không bắt phải có chữ thường
@@ -39,7 +60,7 @@ builder.Services.Configure<IdentityOptions> (options => {
     options.Password.RequiredUniqueChars = 1; // Số ký tự riêng biệt
 
     // Cấu hình Lockout - khóa user
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes (5); // Khóa 5 phút
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Khóa 5 phút
     options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lầ thì khóa
     options.Lockout.AllowedForNewUsers = true;
 

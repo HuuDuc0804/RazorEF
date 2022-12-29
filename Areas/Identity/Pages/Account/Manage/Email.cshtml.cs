@@ -69,7 +69,7 @@ namespace CS58___Entity_Framework.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Emai mới")]
             public string NewEmail { get; set; }
         }
 
