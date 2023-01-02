@@ -53,7 +53,7 @@ namespace CS58___Entity_Framework.Pages_Blog
                 if (CurrentPage > CountPages)
                     CurrentPage = CountPages;
 
-                Article = _article.Skip((CurrentPage - 1) * 10)
+                Article = _article.Skip((CurrentPage - 1) * ITEMS_PER_PAGE)
                                     .Take(ITEMS_PER_PAGE).ToList();
             }
         }

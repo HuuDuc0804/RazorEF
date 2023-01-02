@@ -48,6 +48,9 @@ builder.Services.AddAuthentication()
 
         });
 
+// Đăng ký override Identity Erorr Describer (Custom)
+builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
+
 // Truy cập IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>
 {
