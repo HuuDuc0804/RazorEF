@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
- [Authorize(Roles = "Admin")]
-
+// Policy: Tạo ra các policy (chính sách) -> AllowEditRole
+[Authorize(Policy = "AllowEditRole")]
+// [Authorize(Roles = "Admin")]
 public class EditModel : RolePageModel
 {
     public EditModel(RoleManager<IdentityRole> roleManager, ArticleContext context) : base(roleManager, context)
@@ -21,19 +23,23 @@ public class EditModel : RolePageModel
     }
     [BindProperty]
     public InputModel Input { set; get; } = new InputModel();
+    public List<IdentityRoleClaim<string>> Claims { get; set; } = new List<IdentityRoleClaim<string>>();
+    public IdentityRole role { get; set; } = new IdentityRole();
     public async Task<IActionResult> OnGet(string roleid)
     {
-        var role = await _roleManager.FindByIdAsync(roleid);
+        role = await _roleManager.FindByIdAsync(roleid);
         if (role != null)
         {
             Input.Name = role.Name;
+            Claims = await _context.RoleClaims.Where(rc => rc.RoleId == role.Id).ToListAsync();
         }
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync(string roleid)
     {
-        var role = await _roleManager.FindByIdAsync(roleid);
+        role = await _roleManager.FindByIdAsync(roleid);
+        Claims = await _context.RoleClaims.Where(rc => rc.RoleId == role.Id).ToListAsync();
         if (ModelState.IsValid)
         {
             if (role != null)

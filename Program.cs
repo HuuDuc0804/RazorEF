@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,26 @@ builder.Services.AddAuthentication()
 
 // Đăng ký override Identity Erorr Describer (Custom)
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
+
+// Đăng ký Policy
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("AllowEditRole", policyBuilder => {
+        // Điều kiện của Policy
+        policyBuilder.RequireAuthenticatedUser(); // User phải đăng nhập
+        policyBuilder.RequireRole("Admin");       // User phải có Role Admin
+
+        policyBuilder.RequireClaim("AllowEdit", "Edit", "Sua");
+        // Claims-based authorization
+        // policyBuilder.RequireClaim("Ten claim", "value1", "value2");
+        // policyBuilder.RequireClaim("Ten claim", new string[] {
+        //     "value3",
+        //     "value4"
+        // });
+        // IdentityRoleClaim<string> claim1;
+        // IdentityUserClaim<string> claim2;
+        // Claim claim3;
+    });
+});
 
 // Truy cập IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>

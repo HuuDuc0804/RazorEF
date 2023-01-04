@@ -17,10 +17,15 @@
         <th>Vai trò (Role)</th>
         <th>Tác vụ</th>
     </tr>
-    @foreach (var role in Model.Roles!)
+    @foreach (var role in Model.rolesModel!)
     {
         <tr>
-            <td>@role.Name</td>
+            <td><strong>@role.Name</strong>
+                @foreach (var claim in @role.Claims)
+                {
+                    <br><small><i>@claim</i></small>
+                }
+            </td>
             <td>
                 <a class="btn btn-success btn-sm" asp-page="./Edit" asp-route-roleid="@role.Id">Sửa</a>
                 <a class="btn btn-success btn-sm" asp-page="./Delete" asp-route-roleid="@role.Id">Xóa</a>
