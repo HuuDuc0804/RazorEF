@@ -1,7 +1,9 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Security.Requirements;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,7 +72,24 @@ builder.Services.AddAuthorization(options => {
         // IdentityUserClaim<string> claim2;
         // Claim claim3;
     });
+    // Đăng ký Requirement Authorization
+    options.AddPolicy("InGenZ", policyBuilder => {
+        policyBuilder.RequireAuthenticatedUser();
+        policyBuilder.Requirements.Add(new GenZRequirement());
+    });
+
+    // Show admin
+    options.AddPolicy("ShowAdminMenu", policyBuilder => {
+        policyBuilder.RequireRole("Admin");
+    });
+
+    // Can Update
+    options.AddPolicy("CanUpdateArticle", policyBuilder => {
+        policyBuilder.Requirements.Add(new ArticleUpdateRequirement());
+    });
 });
+// Đăng ký dịch vụ Authorization Handler
+builder.Services.AddTransient<IAuthorizationHandler, AppAuthorizationHander>();
 
 // Truy cập IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>

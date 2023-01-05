@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace CS58___Entity_Framework.Pages_Blog
 {
+    [Authorize(Policy = "InGenZ")] // Năm sinh 1997 - 2012
     public class DetailsModel : PageModel
     {
         private readonly ArticleContext _context;

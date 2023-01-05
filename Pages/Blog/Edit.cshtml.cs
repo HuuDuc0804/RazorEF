@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,10 +13,12 @@ namespace CS58___Entity_Framework.Pages_Blog
     public class EditModel : PageModel
     {
         private readonly ArticleContext _context;
+        private readonly IAuthorizationService _authorizationService;
 
-        public EditModel(ArticleContext context)
+        public EditModel(ArticleContext context, IAuthorizationService authorizationService)
         {
             _context = context;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -28,7 +31,7 @@ namespace CS58___Entity_Framework.Pages_Blog
                 return NotFound();
             }
 
-            var article =  await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
+            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
                 return NotFound();
@@ -50,7 +53,12 @@ namespace CS58___Entity_Framework.Pages_Blog
 
             try
             {
-                await _context.SaveChangesAsync();
+                // Kiểm tra quyền cập nhật
+                var canUpdate = await _authorizationService.AuthorizeAsync(this.User, Article, "CanUpdateArticle");
+                if (canUpdate.Succeeded)
+                    await _context.SaveChangesAsync();
+                else
+                    return Content("Không được quyền cập nhật");
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -69,7 +77,7 @@ namespace CS58___Entity_Framework.Pages_Blog
 
         private bool ArticleExists(int id)
         {
-          return (_context.Articles?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Articles?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
