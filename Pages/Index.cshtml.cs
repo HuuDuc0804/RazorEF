@@ -6,9 +6,9 @@ namespace CS58___Entity_Framework.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
-    private readonly ArticleContext context;
+    private readonly AppDbContext context;
 
-    public IndexModel(ILogger<IndexModel> logger, ArticleContext context)
+    public IndexModel(ILogger<IndexModel> logger, AppDbContext context)
     {
         _logger = logger;
         this.context = context;

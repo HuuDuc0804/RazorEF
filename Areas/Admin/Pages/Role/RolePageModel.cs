@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 public class RolePageModel : PageModel
 {
     protected readonly RoleManager<IdentityRole> _roleManager;
-    protected readonly ArticleContext _context;
+    protected readonly AppDbContext _context;
 
-    public RolePageModel(RoleManager<IdentityRole> roleManager, ArticleContext context)
+    public RolePageModel(RoleManager<IdentityRole> roleManager, AppDbContext context)
     {
         _roleManager = roleManager;
         _context = context;

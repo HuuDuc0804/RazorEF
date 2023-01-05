@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class CreateModel : RolePageModel
 {
-    public CreateModel(RoleManager<IdentityRole> roleManager, ArticleContext context) : base(roleManager, context)
+    public CreateModel(RoleManager<IdentityRole> roleManager, AppDbContext context) : base(roleManager, context)
     {
     }
     public class InputModel

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 [Authorize(Roles = "Admin")]
 public class IndexModel : RolePageModel
 {
-    public IndexModel(RoleManager<IdentityRole> roleManager, ArticleContext context) : base(roleManager, context)
+    public IndexModel(RoleManager<IdentityRole> roleManager, AppDbContext context) : base(roleManager, context)
     {
     }
     public class RoleModel : IdentityRole

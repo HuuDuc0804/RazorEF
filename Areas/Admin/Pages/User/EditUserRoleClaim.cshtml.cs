@@ -8,10 +8,10 @@ namespace Admin.User
 {
     public class EditUserRoleClaimModel : PageModel
     {
-        private readonly ArticleContext _context;
+        private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
 
-        public EditUserRoleClaimModel(ArticleContext context, UserManager<AppUser> userManager)
+        public EditUserRoleClaimModel(AppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;

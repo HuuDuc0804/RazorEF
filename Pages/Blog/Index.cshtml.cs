@@ -12,9 +12,9 @@ namespace CS58___Entity_Framework.Pages_Blog
     [Authorize]
     public class IndexModel : PageModel
     {
-        private readonly ArticleContext _context;
+        private readonly AppDbContext _context;
 
-        public IndexModel(ArticleContext context)
+        public IndexModel(AppDbContext context)
         {
             _context = context;
         }

@@ -18,13 +18,13 @@ namespace Admin.User
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ArticleContext _context;
+        private readonly AppDbContext _context;
 
         public AddRoleModel(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            ArticleContext context)
+            AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;

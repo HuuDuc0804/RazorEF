@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class DeleteModel : RolePageModel
 {
-    public DeleteModel(RoleManager<IdentityRole> roleManager, ArticleContext context) : base(roleManager, context)
+    public DeleteModel(RoleManager<IdentityRole> roleManager, AppDbContext context) : base(roleManager, context)
     {
     }
     public IdentityRole role { get; set; } = new IdentityRole();

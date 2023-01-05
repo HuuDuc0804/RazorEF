@@ -10,9 +10,9 @@ namespace CS58___Entity_Framework.Pages_Blog
 {
     public class DeleteModel : PageModel
     {
-        private readonly ArticleContext _context;
+        private readonly AppDbContext _context;
 
-        public DeleteModel(ArticleContext context)
+        public DeleteModel(AppDbContext context)
         {
             _context = context;
         }

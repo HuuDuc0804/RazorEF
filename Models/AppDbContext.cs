@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class ArticleContext : IdentityDbContext<AppUser>
+public class AppDbContext : IdentityDbContext<AppUser>
 {
-    public ArticleContext(DbContextOptions<ArticleContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

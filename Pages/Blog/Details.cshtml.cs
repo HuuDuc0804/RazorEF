@@ -12,9 +12,9 @@ namespace CS58___Entity_Framework.Pages_Blog
     [Authorize(Policy = "InGenZ")] // Năm sinh 1997 - 2012
     public class DetailsModel : PageModel
     {
-        private readonly ArticleContext _context;
+        private readonly AppDbContext _context;
 
-        public DetailsModel(ArticleContext context)
+        public DetailsModel(AppDbContext context)
         {
             _context = context;
         }

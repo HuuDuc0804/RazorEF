@@ -13,13 +13,13 @@ builder.Services.AddSingleton<IEmailSender, SendMailService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ArticleContext>(option =>
+builder.Services.AddDbContext<AppDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("ArticleContextConnectiton"))
 );
 
 //Đăng ký Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>()
-    .AddEntityFrameworkStores<ArticleContext>()
+    .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 // builder.Services.AddDefaultIdentity<AppUser>()
 //     .AddEntityFrameworkStores<ArticleContext>()

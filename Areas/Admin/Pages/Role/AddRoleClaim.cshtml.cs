@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class AddRoleClaimModel : RolePageModel
 {
-    public AddRoleClaimModel(RoleManager<IdentityRole> roleManager, ArticleContext context) : base(roleManager, context)
+    public AddRoleClaimModel(RoleManager<IdentityRole> roleManager, AppDbContext context) : base(roleManager, context)
     {
     }
     public class InputModel

@@ -10,9 +10,9 @@ namespace CS58___Entity_Framework.Pages_Blog
 {
     public class CreateModel : PageModel
     {
-        private readonly ArticleContext _context;
+        private readonly AppDbContext _context;
 
-        public CreateModel(ArticleContext context)
+        public CreateModel(AppDbContext context)
         {
             _context = context;
         }
